@@ -1,0 +1,73 @@
+flowchart TB
+    %% AWS Cloud
+    subgraph AWS Cloud
+        direction TB
+        %% Public Subnet
+        subgraph Public Subnet AWS
+            direction TB
+            InternetGW_AWS[Internet Gateway]
+            ELB_AWS[Elastic Load Balancer]
+            EC2_AWS[EC2 Instances]
+            InternetGW_AWS --> ELB_AWS --> EC2_AWS
+        end
+        %% Private Subnet
+        subgraph Private Subnet AWS
+            direction TB
+            Sagemaker_AWS[Amazon SageMaker Notebooks]
+            RDS_AWS[RDS Database]
+            EC2_AWS --> Sagemaker_AWS
+            Sagemaker_AWS --> RDS_AWS
+        end
+    end
+
+    %% GCP Cloud
+    subgraph GCP Cloud
+        direction TB
+        %% Public Subnet
+        subgraph Public Subnet GCP
+            direction TB
+            InternetGW_GCP[Internet Gateway]
+            LB_GCP[Cloud Load Balancer]
+            ComputeEngine_GCP[Compute Engine VMs]
+            InternetGW_GCP --> LB_GCP --> ComputeEngine_GCP
+        end
+        %% Private Subnet
+        subgraph Private Subnet GCP
+            direction TB
+            Dataproc_GCP[Dataproc Clusters]
+            CloudSQL_GCP[Cloud SQL Database]
+            ComputeEngine_GCP --> Dataproc_GCP
+            Dataproc_GCP --> CloudSQL_GCP
+        end
+    end
+
+    %% Centralized Identity Management
+    subgraph Identity Management
+        direction TB
+        IdP[Centralized Identity Provider / SSO]
+        New_User[New Data Scientist / Programmer] -->|Onboard| IdP
+        IdP -->|Federated Access| IAM_AWS[IAM AWS]
+        IdP -->|Federated Access| IAM_GCP[IAM GCP]
+        IAM_AWS --> EC2_AWS
+        IAM_AWS --> Sagemaker_AWS
+        IAM_GCP --> ComputeEngine_GCP
+        IAM_GCP --> Dataproc_GCP
+    end
+
+    %% Optional VPC Peering
+    VPC_AWS[VPC AWS]
+    VPC_GCP[VPC GCP]
+    VPC_AWS ---|Optional VPC Peering| VPC_GCP
+
+    %% Styles
+    style AWS Cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px
+    style GCP Cloud fill:#E8F5E9,stroke:#43A047,stroke-width:2px
+    style Identity Management fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,font-weight:bold
+    style New_User fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px
+
+    %% Subnet Styles
+    style Public Subnet AWS fill:#FFFFFF,stroke:#1E88E5,stroke-dasharray: 5 5
+    style Private Subnet AWS fill:#F0F0F0,stroke:#1E88E5
+    style Public Subnet GCP fill:#FFFFFF,stroke:#43A047,stroke-dasharray: 5 5
+    style Private Subnet GCP fill:#F0F0F0,stroke:#43A047
+
