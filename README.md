@@ -3,14 +3,14 @@
 ```mermaid
 flowchart TB
     %% Legend
-    subgraph Legend [Legend]
+    subgraph legend [Legend]
         direction LR
-        classDef cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px;
-        classDef publicSubnet fill:#FFFFFF,stroke:#000000,stroke-dasharray: 5 5;
-        classDef privateSubnet fill:#F0F0F0,stroke:#000000;
-        classDef resource fill:#FFFFFF,stroke:#000000,shape:rect;
-        classDef idp fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px;
-        classDef user fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px;
+        classDef cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#000000;
+        classDef publicSubnet fill:#FFFFFF,stroke:#000000,stroke-dasharray: 5 5,color:#000000;
+        classDef privateSubnet fill:#F0F0F0,stroke:#000000,color:#000000;
+        classDef resource fill:#FFFFFF,stroke:#000000,shape:rect,color:#000000;
+        classDef idp fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,color:#000000;
+        classDef user fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px,color:#000000;
 
         L1[Cloud Environment]:::cloud
         L2[Public Subnet]:::publicSubnet
@@ -20,10 +20,10 @@ flowchart TB
     end
 
     %% AWS Cloud
-    subgraph AWS Cloud:::cloud
+    subgraph aws_cloud [AWS Cloud]
         direction TB
         %% Public Subnet
-        subgraph Public Subnet AWS:::publicSubnet
+        subgraph public_subnet_aws [Public Subnet AWS]
             direction TB
             InternetGW_AWS[Internet Gateway]:::resource
             ELB_AWS[Elastic Load Balancer]:::resource
@@ -31,7 +31,7 @@ flowchart TB
             InternetGW_AWS --> ELB_AWS --> EC2_AWS
         end
         %% Private Subnet
-        subgraph Private Subnet AWS:::privateSubnet
+        subgraph private_subnet_aws [Private Subnet AWS]
             direction TB
             Sagemaker_AWS[Amazon SageMaker Notebooks]:::resource
             RDS_AWS[RDS Database]:::resource
@@ -41,10 +41,10 @@ flowchart TB
     end
 
     %% GCP Cloud
-    subgraph GCP Cloud:::cloud
+    subgraph gcp_cloud [GCP Cloud]
         direction TB
         %% Public Subnet
-        subgraph Public Subnet GCP:::publicSubnet
+        subgraph public_subnet_gcp [Public Subnet GCP]
             direction TB
             InternetGW_GCP[Internet Gateway]:::resource
             LB_GCP[Cloud Load Balancer]:::resource
@@ -52,7 +52,7 @@ flowchart TB
             InternetGW_GCP --> LB_GCP --> ComputeEngine_GCP
         end
         %% Private Subnet
-        subgraph Private Subnet GCP:::privateSubnet
+        subgraph private_subnet_gcp [Private Subnet GCP]
             direction TB
             Dataproc_GCP[Dataproc Clusters]:::resource
             CloudSQL_GCP[Cloud SQL Database]:::resource
@@ -62,7 +62,7 @@ flowchart TB
     end
 
     %% Centralized Identity Management
-    subgraph Identity Management:::idp
+    subgraph identity_management [Identity Management]
         direction TB
         IdP[Centralized Identity Provider / SSO]:::idp
         New_User[New Data Scientist / Programmer]:::user -->|Onboard| IdP
@@ -79,13 +79,33 @@ flowchart TB
     VPC_GCP[VPC GCP]:::resource
     VPC_AWS ---|Optional VPC Peering| VPC_GCP
 
+    %% Apply styles to subgraphs using 'style' directives
+    style aws_cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px,color:#000000
+    style gcp_cloud fill:#E8F5E9,stroke:#43A047,stroke-width:2px,color:#000000
+    style identity_management fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,font-weight:bold,color:#000000
+    style public_subnet_aws stroke:#000000,stroke-dasharray: 5 5,color:#000000
+    style private_subnet_aws fill:#F0F0F0,stroke:#000000,color:#000000
+    style public_subnet_gcp stroke:#000000,stroke-dasharray: 5 5,color:#000000
+    style private_subnet_gcp fill:#F0F0F0,stroke:#000000,color:#000000
+
     %% Styles Applied from Legend
-    class AWS Cloud, GCP Cloud cloud
-    class Public\ Subnet\ AWS, Public\ Subnet\ GCP publicSubnet
-    class Private\ Subnet\ AWS, Private\ Subnet\ GCP privateSubnet
-    class InternetGW_AWS, ELB_AWS, EC2_AWS, Sagemaker_AWS, RDS_AWS, InternetGW_GCP, LB_GCP, ComputeEngine_GCP, Dataproc_GCP, CloudSQL_GCP, IAM_AWS, IAM_GCP, VPC_AWS, VPC_GCP resource
+    class InternetGW_AWS resource
+    class ELB_AWS resource
+    class EC2_AWS resource
+    class Sagemaker_AWS resource
+    class RDS_AWS resource
+    class InternetGW_GCP resource
+    class LB_GCP resource
+    class ComputeEngine_GCP resource
+    class Dataproc_GCP resource
+    class CloudSQL_GCP resource
+    class IAM_AWS resource
+    class IAM_GCP resource
+    class VPC_AWS resource
+    class VPC_GCP resource
     class IdP idp
     class New_User user
+
 ```
 
 **Explanation of the Architecture:**
