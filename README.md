@@ -1,69 +1,91 @@
 # vpc_setup
 
-Sure! Below is a sophisticated Mermaid diagram (`.mmd` format) that illustrates a robust architecture for deploying
-resources into one or two Virtual Private Clouds (VPCs) across AWS and GCP platforms. The architecture emphasizes
-seamless deployment of notebooks, Dataproc clusters, virtual machines (VMs), and other resources, all within the VPCs.
-It also showcases an automated Identity and Access Management (IAM) system for efficient onboarding and authentication
-of new data scientists and programmers.
-
 ```mermaid
-graph LR
+flowchart TB
+    %% Legend
+    subgraph Legend [Legend]
+        direction LR
+        classDef cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px;
+        classDef publicSubnet fill:#FFFFFF,stroke:#000000,stroke-dasharray: 5 5;
+        classDef privateSubnet fill:#F0F0F0,stroke:#000000;
+        classDef resource fill:#FFFFFF,stroke:#000000,shape:rect;
+        classDef idp fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px;
+        classDef user fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px;
+
+        L1[Cloud Environment]:::cloud
+        L2[Public Subnet]:::publicSubnet
+        L3[Private Subnet]:::privateSubnet
+        L4[Resource]:::resource
+        L5[Identity Provider]:::idp
+    end
+
     %% AWS Cloud
-    subgraph AWS Cloud
+    subgraph AWS Cloud:::cloud
         direction TB
-        VPC_AWS[VPC]
-        Subnet_AWS_Public[Public Subnet]
-        Subnet_AWS_Private[Private Subnet]
-        VPC_AWS --> Subnet_AWS_Public
-        VPC_AWS --> Subnet_AWS_Private
-        Subnet_AWS_Public --> InternetGW_AWS[Internet Gateway]
-        Subnet_AWS_Public --> ELB[Elastic Load Balancer]
-        Subnet_AWS_Public --> EC2[EC2 Instances]
-        Subnet_AWS_Private --> Sagemaker[Amazon SageMaker Notebooks]
-        Subnet_AWS_Private --> RDS[RDS Database]
-        EC2 -->|Access| Sagemaker
-        EC2 -->|Connects| RDS
-        IAM_AWS[IAM Roles & Policies]
-        IAM_AWS --> EC2
-        IAM_AWS --> Sagemaker
-        IAM_AWS --> RDS
+        %% Public Subnet
+        subgraph Public Subnet AWS:::publicSubnet
+            direction TB
+            InternetGW_AWS[Internet Gateway]:::resource
+            ELB_AWS[Elastic Load Balancer]:::resource
+            EC2_AWS[EC2 Instances]:::resource
+            InternetGW_AWS --> ELB_AWS --> EC2_AWS
+        end
+        %% Private Subnet
+        subgraph Private Subnet AWS:::privateSubnet
+            direction TB
+            Sagemaker_AWS[Amazon SageMaker Notebooks]:::resource
+            RDS_AWS[RDS Database]:::resource
+            EC2_AWS --> Sagemaker_AWS
+            Sagemaker_AWS --> RDS_AWS
+        end
     end
 
     %% GCP Cloud
-    subgraph GCP Cloud
+    subgraph GCP Cloud:::cloud
         direction TB
-        VPC_GCP[VPC]
-        Subnet_GCP_Public[Public Subnet]
-        Subnet_GCP_Private[Private Subnet]
-        VPC_GCP --> Subnet_GCP_Public
-        VPC_GCP --> Subnet_GCP_Private
-        Subnet_GCP_Public --> InternetGW_GCP[Internet Gateway]
-        Subnet_GCP_Public --> LB_GCP[Cloud Load Balancer]
-        Subnet_GCP_Public --> ComputeEngine[Compute Engine VMs]
-        Subnet_GCP_Private --> Dataproc[Dataproc Clusters]
-        Subnet_GCP_Private --> CloudSQL[Cloud SQL Database]
-        ComputeEngine -->|Access| Dataproc
-        ComputeEngine -->|Connects| CloudSQL
-        IAM_GCP[IAM Roles & Policies]
-        IAM_GCP --> ComputeEngine
-        IAM_GCP --> Dataproc
-        IAM_GCP --> CloudSQL
+        %% Public Subnet
+        subgraph Public Subnet GCP:::publicSubnet
+            direction TB
+            InternetGW_GCP[Internet Gateway]:::resource
+            LB_GCP[Cloud Load Balancer]:::resource
+            ComputeEngine_GCP[Compute Engine VMs]:::resource
+            InternetGW_GCP --> LB_GCP --> ComputeEngine_GCP
+        end
+        %% Private Subnet
+        subgraph Private Subnet GCP:::privateSubnet
+            direction TB
+            Dataproc_GCP[Dataproc Clusters]:::resource
+            CloudSQL_GCP[Cloud SQL Database]:::resource
+            ComputeEngine_GCP --> Dataproc_GCP
+            Dataproc_GCP --> CloudSQL_GCP
+        end
     end
 
     %% Centralized Identity Management
-    IdP[Centralized Identity Provider / SSO]
-    New_User[New Data Scientist / Programmer] -->|Onboard| IdP
-    IdP -->|Federated Access| IAM_AWS
-    IdP -->|Federated Access| IAM_GCP
+    subgraph Identity Management:::idp
+        direction TB
+        IdP[Centralized Identity Provider / SSO]:::idp
+        New_User[New Data Scientist / Programmer]:::user -->|Onboard| IdP
+        IdP -->|Federated Access| IAM_AWS[IAM AWS]:::resource
+        IdP -->|Federated Access| IAM_GCP[IAM GCP]:::resource
+        IAM_AWS --> EC2_AWS
+        IAM_AWS --> Sagemaker_AWS
+        IAM_GCP --> ComputeEngine_GCP
+        IAM_GCP --> Dataproc_GCP
+    end
 
     %% Optional VPC Peering
-    VPC_AWS <-->|VPC Peering| VPC_GCP
+    VPC_AWS[VPC AWS]:::resource
+    VPC_GCP[VPC GCP]:::resource
+    VPC_AWS ---|Optional VPC Peering| VPC_GCP
 
-    %% Styles
-    style AWS Cloud fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px
-    style GCP Cloud fill:#E8F5E9,stroke:#43A047,stroke-width:2px
-    style IdP fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,font-weight:bold
-    style New_User fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px
+    %% Styles Applied from Legend
+    class AWS Cloud, GCP Cloud cloud
+    class Public\ Subnet\ AWS, Public\ Subnet\ GCP publicSubnet
+    class Private\ Subnet\ AWS, Private\ Subnet\ GCP privateSubnet
+    class InternetGW_AWS, ELB_AWS, EC2_AWS, Sagemaker_AWS, RDS_AWS, InternetGW_GCP, LB_GCP, ComputeEngine_GCP, Dataproc_GCP, CloudSQL_GCP, IAM_AWS, IAM_GCP, VPC_AWS, VPC_GCP resource
+    class IdP idp
+    class New_User user
 ```
 
 **Explanation of the Architecture:**
