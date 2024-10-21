@@ -1,5 +1,23 @@
-
 # Threat Model erstellen
 
-# Folgewirkung
+# CVSS
 
+Klassifizierung von Schwachstellen
+
+## Folgewirkung
+
+## Metrices
+
+https://nvd.nist.gov/vuln-metrics/cvss/v4-calculator?name=CVE-2024-4976
+
+## OWASP Top 10
+
+https://owasp.org/www-project-top-ten/
+
+![img_2.png](img_2.png)
+
+# Which Hacker-Groups Stories?
+
+https://attack.mitre.org/
+
+https://attack.mitre.org/groups/
