@@ -1,0 +1,5 @@
+
+# Threat Model erstellen
+
+# Folgewirkung
+
