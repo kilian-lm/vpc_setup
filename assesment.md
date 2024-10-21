@@ -1,3 +1,10 @@
+
+
+# Contact SOC of your company 
+
+A security operations center (SOC)
+Common Vulnerabilities and Exposures
+
 # Threat Model erstellen
 
 # CVSS
