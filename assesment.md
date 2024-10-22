@@ -1,6 +1,4 @@
-
-
-# Contact SOC of your company 
+# Contact SOC of your company
 
 A security operations center (SOC)
 Common Vulnerabilities and Exposures
@@ -28,3 +26,17 @@ https://owasp.org/www-project-top-ten/
 https://attack.mitre.org/
 
 https://attack.mitre.org/groups/
+
+https://haveibeenpwned.com/
+
+https://haveibeenpwned.com/API/v3
+
+https://haveibeenpwned.com/API/v3
+
+#  Further reads
+
+https://darknetdiaries.com/episode/
+
+# Try yourself 
+
+https://juice-shop.herokuapp.com/#/login
