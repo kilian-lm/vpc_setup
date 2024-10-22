@@ -33,20 +33,32 @@ https://haveibeenpwned.com/API/v3
 
 https://haveibeenpwned.com/API/v3
 
-#  Further reads
+# Further reads
 
 https://darknetdiaries.com/episode/
 
-# Try yourself 
+# Try yourself
 
 https://juice-shop.herokuapp.com/#/login
 
-
 ![img_5.png](img_5.png)
-
 
 ![img_6.png](img_6.png)
 
-
 ![img_7.png](img_7.png)
 
+# Play
+
+![img_8.png](img_8.png)
+
+https://www.blackhillsinfosec.com/projects/backdoorsandbreaches/
+
+# Search yourself
+
+https://crt.sh/
+
+https://www.shodan.io/
+
+https://app.netlas.io/registration/
+
+https://search.censys.io/
