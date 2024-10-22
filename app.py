@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import requests
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # Configuration for APIs (use environment variables)
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')

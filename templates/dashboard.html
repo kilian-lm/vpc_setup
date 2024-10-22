@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard - Personal Security Dashboard
+{% endblock %}
+
+{% block content %}
+<h1>Welcome to Your Personal Security Dashboard</h1>
+<div class="circle">
+    <div class="sector sector-1" onclick="location.href='/make_yourself_aware'">
+        <span class="icon">🛡️</span>
+    </div>
+    <div class="sector sector-2" onclick="location.href='/monitor'">
+        <span class="icon">🔍</span>
+    </div>
+    <div class="sector sector-3" onclick="location.href='/save_encrypt'">
+        <span class="icon">🔒</span>
+    </div>
+    <div class="sector sector-4" onclick="location.href='/act'">
+        <span class="icon">⚙️</span>
+    </div>
+    <div class="sector sector-5" onclick="location.href='/coders'">
+        <span class="icon">💻</span>
+    </div>
+
+</div>
+
+{% endblock %}

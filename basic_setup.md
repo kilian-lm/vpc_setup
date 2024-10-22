@@ -23,3 +23,6 @@ or even disaster recovery with application replication,
 create backup GCP compute capacity,
 4:18
 then revert back to it once the incident is over.
+
+
+![img_4.png](img_4.png)

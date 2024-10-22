@@ -2,8 +2,9 @@
 <html>
 <head>
     <title>{% block title %}Personal Security Dashboard{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        /* Common styles here */
+        /* Common styles */
         nav {
             background-color: #333;
             overflow: hidden;
@@ -21,11 +22,10 @@
             background-color: #ddd;
             color: black;
         }
-
-        /* Additional common styles */
     </style>
 </head>
 <body>
+    <!-- Navigation bar -->
     <nav>
         <a href="/">Dashboard</a>
         <a href="/make_yourself_aware">Make Yourself Aware</a>
@@ -34,6 +34,8 @@
         <a href="/act">Act</a>
         <a href="/coders">Coders</a>
     </nav>
+
+    <!-- Content block to be filled by child templates -->
     {% block content %}
     {% endblock %}
 </body>
