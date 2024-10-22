@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Coders{% endblock %}
+
+{% block content %}
+<h1>Coders</h1>
+<p>Resources for developers to enhance code security.</p>
+
+<ul>
+    <li><a href="https://snyk.io/">Snyk</a> - Find and fix vulnerabilities in your dependencies.</li>
+    <li><a href="https://www.whitesourcesoftware.com/free-developer-tools/renovate/">Renovate</a> - Automated dependency updates.</li>
+    <li><a href="https://www.docker.com/">Docker Extensions for Dependency Checking</a> - Tools to scan Docker images for vulnerabilities.</li>
+    <li><a href="https://github.com/awslabs/git-secrets">Git-Secrets</a> - Prevent committing secrets into git repositories.</li>
+    <li><a href="https://github.com/zricethezav/gitleaks">Gitleaks</a> - Detect and prevent hardcoded secrets.</li>
+    <li><a href="https://www.dependency-track.org/">Dependency-Track</a> - Monitor and analyze software dependencies.</li>
+    <li><a href="https://owasp.org/www-project-dependency-check/">OWASP Dependency-Check</a> - Detect known vulnerabilities in project dependencies.</li>
+    <li><a href="https://bandit.readthedocs.io/en/latest/">Bandit</a> - Security linter for Python code.</li>
+    <li><a href="https://github.com/hadolint/hadolint">Hadolint</a> - Linter for Dockerfiles.</li>
+</ul>
+
+<a href="/">Back to Dashboard</a>
+{% endblock %}
