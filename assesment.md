@@ -62,3 +62,35 @@ https://www.shodan.io/
 https://app.netlas.io/registration/
 
 https://search.censys.io/
+
+https://dnsdumpster.com/
+
+https://dorksearch.com/
+
+site:amazonaws "dm.de" "vertraulich"
+
+# Wie man es melden kann
+
+.well-known/security.txt
+
+# Cobald Strike
+
+## Red Head simulation
+
+Command and control framework
+Email -> zip -> lnk file
+Install keylogger
+SharpView -> network check
+bloodhound client ldap
+https://stackoverflow.com/questions/3882792/what-does-an-ldap-request-and-response-look-like
+
+slither
+hamler -> c2
+
+# c2 frameworks 
+
+https://github.com/tcostam/awesome-command-control
+
+https://github.com/BishopFox/sliver
+
+https://www.kali.org/
