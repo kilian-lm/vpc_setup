@@ -87,10 +87,14 @@ https://stackoverflow.com/questions/3882792/what-does-an-ldap-request-and-respon
 slither
 hamler -> c2
 
-# c2 frameworks 
+# c2 frameworks
 
 https://github.com/tcostam/awesome-command-control
 
 https://github.com/BishopFox/sliver
 
 https://www.kali.org/
+
+![img_9.png](img_9.png)
+via domain controller dcsync
+https://en.wikipedia.org/wiki/Domain_controller
