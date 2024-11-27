@@ -31,3 +31,6 @@
 trufflehawk
 
 https://github.com/trufflesecurity/trufflehog
+
+
+https://ddosecrets.com/
